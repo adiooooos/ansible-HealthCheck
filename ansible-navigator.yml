@@ -1,0 +1,17 @@
+---
+ansible-navigator:
+  ansible:
+    inventory:
+      entries:
+      - /var/lib/awx/projects/Macau-Project/inventory
+  execution-environment:
+    container-engine: podman
+    enabled: false
+    image: ee-supported-rhel8:latest
+    pull:
+      policy: missing
+  logging:
+    level: debug
+  playbook-artifact:
+    enable: true
+    save-as: playbook-artifacts/{playbook_name}-artifact-{time_stamp}.json
