@@ -1,14 +1,7 @@
 [local]
-192.168.1.107
-[local:vars]
-ansible_ssh_user=""
-ansible_ssh_pass=""
+10.71.19.192
 
-[k8s]
-192.168.0.200
-192.168.0.201
-192.168.0.202
-[k8s:vars]
-ansible_ssh_user=""
-ansible_ssh_pass=""
-
+[rhel7]
+Test-RHEL-7.9-1
+Test-RHEL-7.9-2
+Test-RHEL-7.9-3
