@@ -1,0 +1,14 @@
+---
+- hosts: rhel7
+  gather_facts: false
+  vars:
+   check_report_path: /tmp
+   check_mail_host: "smtp.126.com"
+   check_mail_port: "465"
+   check_mail_username: "zhangwfy@126.com"
+   check_mail_password: "RSCVGCGVNUGXNKWV"
+   check_mail_to:
+   - fzhang@redhat.com
+   - jewang@redhat.com
+  roles:
+   - os-check
