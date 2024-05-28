@@ -37,18 +37,20 @@ python `3.9`
 
 ## Example Playbook
 
-	---
-	- hosts: all
-	  gather_facts: false
-	  vars:
-	   check_report_path: /tmp
-	   check_mail_host: "smtp.lework.com"
-	   check_mail_port: "465"
-	   check_mail_username: "ops@lework.com"
-	   check_mail_password: "le123456"
-	   check_mail_to: ["ops@lework.com"] 
-	  roles:
-	   - os-check
+---
+- hosts: rhel7
+  gather_facts: false
+  vars:
+   check_report_path: /tmp
+   check_mail_host: "smtp.126.com"
+   check_mail_port: "465"
+   check_mail_username: "zhangwfy@126.com"
+   check_mail_password: "RSXXXNKWV"
+   check_mail_to:
+   - fzXXng@redhat.com
+   - jewXXg@redhat.com
+  roles:
+   - os-check
 
 > 这里注意下，check_mail_*的配置，这里使用的是ssl加密的配置方式，如果要其他的方式配置请使用`ansible-doc mail`查看使用方法，针对自身情况配置mail。
 
