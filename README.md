@@ -1,3 +1,5 @@
+Forked from liushiju/ansible-HealthCheck，并且针对AAP的AC EE容器环境进行了优化配置和修改：
+
 # Ansible Role: os-check
 
 针对linux系统进行资源巡检，生成巡检报告后可以通过邮件发送给接收人
