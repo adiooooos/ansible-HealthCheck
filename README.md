@@ -99,3 +99,66 @@ python -m SimpleHTTPServer 80
 
 - 网页查看
 ![result](images/result.png)
+
+
+### 在Ansible Automation Platform 中的 Automation Controller 上执行时，需要额外封装容器镜像，并且针对RHEL7进行配置优化：
+
+[root@controller safety-patrol]# more ansible.cfg
+[defaults]
+inventory = ./inventory
+filter_plugins = filter_plugins
+
+[galaxy]
+server_list = automation_hub, galaxy
+
+
+[galaxy_server.automation_hub]
+url=https://console.redhat.com/api/automation-hub/
+username=fzhang@xxxt.com
+password=Foxxxx
+
+
+[galaxy_server.galaxy]
+url=https://galaxy.ansible.com/
+token=a277c58d2xxxb6d01a90e4f6
+
+[root@controller safety-patrol]# more requirements.yml
+---
+collections:
+  - community.general
+
+[root@controller safety-patrol]# more execution-environment.yml
+---
+version: 1
+
+build_arg_defaults:
+  EE_BASE_IMAGE: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
+  EE_BUILDER_IMAGE: registry.redhat.io/ansible-automation-platform-24/ansible-builder-rhel8:latest
+
+ansible_config: ansible.cfg
+
+dependencies:
+  galaxy: requirements.yml
+
+additional_build_steps:
+  append:
+  - RUN microdnf install -y glibc-langpack-en; sed -i 's/^LANG=.*/LANG="en_US.utf8"/' /etc/locale.conf; sed -i 's/^LC_ALL=.*/LC_ALL="en_US.utf8"/' /etc/locale.conf
+  - ENV LANG=en_US.utf8
+  - ENV LC_CTYPE=en_US.utf8
+  - ENV LC_ALL=en_US.utf8
+
+[root@controller safety-patrol]# podman login --log-level debug registry.redhat.io
+
+[root@controller safety-patrol]#  ansible-builder create -v 3
+
+[root@controller safety-patrol]#  podman build -f context/Containerfile context --no-cache -t localhost/demo_ee:latest-1
+
+[root@controller safety-patrol]#  podman login --log-level debug hub.example.com
+
+[root@controller safety-patrol]# podman tag localhost/demo_ee:latest-1 hub.example.com/demo_ee:latest-1
+
+[root@controller safety-patrol]# podman push hub.example.com/demo_ee:latest-1
+
+![image](https://github.com/adiooooos/ansible-HealthCheck/assets/42025465/92488623-ff38-4577-965b-74538a90dfe6)
+
+
