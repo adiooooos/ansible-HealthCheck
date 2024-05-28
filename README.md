@@ -8,9 +8,9 @@
 
 ## 测试环境
 
-ansible `2.7.0`
-os `Centos 7 X64`
-python `2.7.5`
+ansible `2.15.0`
+os `RHEL 7.9及以上版本`
+python `3.9`
 
 ## 角色变量
 	check_day: "{{ '%Y-%m-%d' | strftime }}"
@@ -33,7 +33,7 @@ python `2.7.5`
 - 目标机`bash`
 
 ## Github地址
-https://github.com/liushiju/Ansible-HealthCheck/tree/master/os-check
+
 
 ## Example Playbook
 
